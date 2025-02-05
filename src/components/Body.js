@@ -1,9 +1,10 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedLabel } from "./RestaurantCard";
 import resList from "../utils/mockData";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 
 const Body = () => {
@@ -12,6 +13,7 @@ const Body = () => {
   const [filteredRestaurant, setFilteredRestaurant] = useState([]);
   const[searchText, setSearchText] = useState("");
   // Whenever state variable updates, react triggers a reconciliation cycle(re-renders the component)
+  const RestaurantCardPromoted = withPromotedLabel(RestaurantCard);
 
 
   useEffect(() => {
@@ -66,6 +68,8 @@ const Body = () => {
       return <h1> You are Offline. Please check your internet connection </h1>
     }
 
+    const { loggedInUser, setUserName } = useContext(UserContext);
+
     return listOfRestaurants.length === 0 ? (
       <Shimmer />
      ) : (
@@ -92,7 +96,7 @@ const Body = () => {
                 </button>
               </div>
               <div className="search m-4 p-4 flex items-center">
-              <button 
+              {/* <button 
                 className="px-4 py-2 bg-gray-100 rounded-lg" 
                 onClick={() => {
                   const filteredList = listOfRestaurants.filter(
@@ -101,13 +105,23 @@ const Body = () => {
                   setListOfRestaurant(filteredList);
                   
                 }}>Top Rated Restaurants
-              </button>
+              </button> */}
+              <label>UserName : </label>
+              <input 
+                className="border border-black p-2" 
+                value={ loggedInUser }
+                onChange={(e) => setUserName(e.target.value)}/>
               </div>
             </div>
             <div className="flex flex-wrap">
                 {
                   filteredRestaurant.map(restaurant => (
-                    <Link key={restaurant.id} to={"/restaurants/" + restaurant.id}><RestaurantCard resData={restaurant}/></Link>  //not using key(not acceptable) <<<<< index as key <<<<< unique id
+                    <Link key={restaurant.id} to={"/restaurants/" + restaurant.id}>
+                      {
+                        restaurant.promoted ? <RestaurantCardPromoted resData={restaurant}/> : <RestaurantCard resData={restaurant}/>
+                      }
+                      
+                    </Link>  //not using key(not acceptable) <<<<< index as key <<<<< unique id
                   ))
                 }
             </div>

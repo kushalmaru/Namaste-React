@@ -5,6 +5,7 @@ const resList = [
         "cuisine": "Indian",
         "rating": 4.5,
         "reviews_count": 124,
+        "promoted": true,
         "address": {
           "street": "39, St. Mark's Road, Shanthala Nagar, Ashok Nagar",
           "city": "Bengaluru",
@@ -51,6 +52,7 @@ const resList = [
         "cuisine": "Japanese",
         "rating": 4.8,
         "reviews_count": 89,
+        "promoted": true,
         "address": {
           "street": "34 Sakura Street",
           "city": "Tokyo",
@@ -120,6 +122,7 @@ const resList = [
         "cuisine": "American",
         "rating": 4.3,
         "reviews_count": 134,
+        "promoted": true,
         "address": {
           "street": "123 Burger Lane",
           "city": "New York",
@@ -189,6 +192,7 @@ const resList = [
         "cuisine": "Italian",
         "rating": 4.4,
         "reviews_count": 111,
+        "promoted": true,
         "address": {
           "street": "56 Via Roma",
           "city": "Florence",
